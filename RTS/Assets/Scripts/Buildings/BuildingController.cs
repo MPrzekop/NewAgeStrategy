@@ -18,10 +18,8 @@ public class BuildingController : MonoBehaviour {
             moveNewBuilding();
 
         if(Input.GetMouseButtonDown(0))
-        {
-            Debug.Log("koniec ustawiania");
-            _isCreating = false;
-        }
+              _isCreating = false;
+        
 
     }
 

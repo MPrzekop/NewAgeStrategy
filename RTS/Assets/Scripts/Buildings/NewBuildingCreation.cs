@@ -15,8 +15,7 @@ public class NewBuildingCreation : MonoBehaviour {
 
         _position.x = mousePosition.x + mousePosition.y * 0.707f;    // 0.707 = sin(45)                          
         _position.z = mousePosition.z + mousePosition.y * 0.707f;    // 0.707 = cos(45)      
-        _position.y = GameObject.FindGameObjectWithTag("ground").transform.position.y + _buildingPrefab.transform.lossyScale.y;
-        var building = Instantiate(_buildingPrefab, _position, Quaternion.identity);
-
+        _position.y = GameObject.FindGameObjectWithTag("ground").transform.position.y + _buildingPrefab.transform.localScale.y / 2;
+         Instantiate(_buildingPrefab, _position, Quaternion.identity);
     }
 }
