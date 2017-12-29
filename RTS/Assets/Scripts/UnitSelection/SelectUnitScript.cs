@@ -28,10 +28,13 @@ public class SelectUnitScript : MonoBehaviour
             isSelecting = false;
         }
         if (!isSelecting) return;
+        GetComponent<SelectedUnitController>().SelectedUnits = new List<Unit>();
         foreach (var obj in FindObjectsOfType<Unit>())
         {
             //set objects as selected if they are within selection
             obj.Selected = IsWithinSelectionBounds(obj.gameObject);
+            if(obj.Selected)
+            GetComponent<SelectedUnitController>().SelectedUnits.Add(obj);
         }
     }
 

@@ -13,7 +13,7 @@ public class Unit : MonoBehaviour
 
     [SerializeField] private bool _selected, _usesFuel;
     [SerializeField] private GameObject _canvas, _healthBar;
-
+    [SerializeField] public int Index;
     private NavMeshAgent _navMeshAgent;
     // Use this for initialization
     void Start()
@@ -26,25 +26,21 @@ public class Unit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SetDestination();
         Move();
+        UpdateHealthBar();
+    }
+
+    void LateUpdate()
+    {
         UpdateHealthBar();
     }
 
     /// <summary>
     /// Sets nav mesh agent destination upon right mouse click. 
     /// </summary>
-    private void SetDestination()
+    public void SetDestination(Vector3 destination)
     {
-        if (!_selected || !Input.GetMouseButtonDown(1)) return;
-        var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        RaycastHit hit;
-        Ray ray = new Ray(pos, Camera.main.transform.forward);
-        if (Physics.Raycast(ray, out hit))
-        {
-            _navMeshAgent.destination = hit.point;
-            Debug.DrawRay(ray.origin, ray.direction * 4, Color.blue, 10);
-        }
+        _navMeshAgent.SetDestination(destination);
     }
     /// <summary>
     /// Checks if can move depending on fuel
@@ -94,6 +90,7 @@ public class Unit : MonoBehaviour
     private void SetHealthBar()
     {
         _healthBar.SetActive(Selected);
+        UpdateHealthBar();
     }
     /// <summary>
     /// update value and position of healthbar
